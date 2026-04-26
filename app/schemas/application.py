@@ -2,14 +2,17 @@
 
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.application import ApplicationStatus
 
 
 class ApplicationCreate(BaseModel):
-    """Кандидат отправляет только id вакансии."""
+    """Что присылает кандидат при отклике."""
     vacancy_id: int
+    # Сопроводительное письмо — что-то связное про опыт и мотивацию.
+    # min_length=20 спасает от пустых/мусорных откликов.
+    cover_letter: str = Field(default="", max_length=10000)
 
 
 class ApplicationStatusUpdate(BaseModel):
@@ -23,6 +26,7 @@ class ApplicationRead(BaseModel):
     id: int
     vacancy_id: int
     candidate_id: int
+    cover_letter: str
     status: ApplicationStatus
     ai_score: float | None
     ai_summary: str | None

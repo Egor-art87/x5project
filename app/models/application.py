@@ -64,6 +64,10 @@ class Application(Base):
         index=True,
     )
 
+    # Сопроводительное письмо — то, что кандидат пишет в форме apply.
+    # Пока нет полноценного профиля, это основной материал для AI-скоринга.
+    cover_letter: Mapped[str] = mapped_column(Text, default="", nullable=False)
+
     # Результаты AI-скоринга (заполнятся позже)
     ai_score: Mapped[float | None] = mapped_column(Float, nullable=True, index=True)
     ai_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
