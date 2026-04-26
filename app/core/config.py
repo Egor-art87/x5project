@@ -30,9 +30,21 @@ class Settings(BaseSettings):
     # Для Postgres строка будет: postgresql+asyncpg://user:pass@host:5432/dbname
     database_url: str = "sqlite+aiosqlite:///./app.db"
 
-    # --- JWT (понадобится дальше) ---
+    # --- JWT ---
     secret_key: str = "change-me-in-production"
     access_token_expire_minutes: int = 15
+
+    # --- GigaChat ---
+    # Authorization key из личного кабинета Сбера (base64 от client_id:client_secret).
+    # Если пусто — ai-ручки будут возвращать 503.
+    gigachat_auth_key: str = ""
+    # Скоуп: GIGACHAT_API_PERS (физ.лица), _B2B или _CORP.
+    gigachat_scope: str = "GIGACHAT_API_PERS"
+    # Модель по умолчанию.
+    gigachat_model: str = "GigaChat"
+    # На локалке часто нет рос. корневых сертификатов — проще выключить.
+    # На проде поставь True и установи cert НУЦ Минцифры.
+    gigachat_verify_ssl: bool = False
 
     # --- Прочее ---
     debug: bool = True
