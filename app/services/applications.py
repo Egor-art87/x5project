@@ -25,7 +25,10 @@ class ForbiddenError(ApplicationError):
 
 
 async def apply(
-    db: AsyncSession, candidate_id: int, vacancy_id: int
+    db: AsyncSession,
+    candidate_id: int,
+    vacancy_id: int,
+    cover_letter: str = "",
 ) -> Application:
     """
     Создаёт отклик. Защиты:
@@ -43,6 +46,7 @@ async def apply(
     application = Application(
         candidate_id=candidate_id,
         vacancy_id=vacancy_id,
+        cover_letter=cover_letter,
         status=ApplicationStatus.NEW,
     )
     db.add(application)
