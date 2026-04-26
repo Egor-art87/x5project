@@ -8,8 +8,10 @@ from contextlib import asynccontextmanager
 from fastapi import APIRouter, FastAPI
 
 from app.api.v1.routers import ai as ai_router
+from app.api.v1.routers import applications as applications_router
 from app.api.v1.routers import auth as auth_router
 from app.api.v1.routers import users as users_router
+from app.api.v1.routers import vacancies as vacancies_router
 from app.db.base import Base
 from app.db.session import engine
 from app.integrations.gigachat import gigachat
@@ -40,6 +42,8 @@ app = FastAPI(
 api_v1 = APIRouter(prefix="/api/v1")
 api_v1.include_router(auth_router.router)
 api_v1.include_router(users_router.router)
+api_v1.include_router(vacancies_router.router)
+api_v1.include_router(applications_router.router)
 api_v1.include_router(ai_router.router)
 app.include_router(api_v1)
 
