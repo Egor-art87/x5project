@@ -46,6 +46,16 @@ class Settings(BaseSettings):
     # На проде поставь True и установи cert НУЦ Минцифры.
     gigachat_verify_ssl: bool = False
 
+    # --- CORS ---
+    # Список origin'ов фронта, которым разрешено ходить на API.
+    # В .env пиши через запятую: CORS_ORIGINS=http://localhost:5173,https://app.x5.ru
+    # Звёздочка "*" разрешает всем — для dev ок, на проде НЕ использовать.
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+
+    @property
+    def cors_origins_list(self) -> list[str]:
+        return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+
     # --- Прочее ---
     debug: bool = True
 
